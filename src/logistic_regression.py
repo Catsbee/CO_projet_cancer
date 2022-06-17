@@ -14,20 +14,23 @@ class LogisticRegression:
         self.X = X
         self.Y = Y
 
-        def update_weight():
-            A = 1/(1+np.exp(-(self.X.dot(self.weight)+self.bias)))
-
-            # Calculation of the gradient
-            temp = np.reshape(A-self.Y.T, self.nb_training_exemple)
-            dW = np.dot(self.X.T, temp)/self.nb_training_exemple
-            db = np.sum(temp)/self.nb_training_exemple
-
-            # New weight
-            self.weight -= self.learning_rate * dW
-            self.bias -= self.learning_rate * db
-
         for i in range(self.iterations):
-            update_weight()
+            self.fit()
+
+    def fit(self):
+        print(self.X.dot(self.weight))
+        print(type(self.bias))
+        """
+        A = 1/(1+np.exp(-(self.X.dot(self.weight)+self.bias)))
+
+        # Calculation of the gradient
+        temp = np.reshape(A-self.Y.T, self.nb_training_exemple)
+        dW = np.dot(self.X.T, temp)/self.nb_training_exemple
+        db = np.sum(temp)/self.nb_training_exemple
+
+        # New weight
+        self.weight = self.weight - self.learning_rate * dW
+        self.bias = self.bias - self.learning_rate * db"""
 
     def predict(self, X):
         Z = 1/(1+np.exp(-(X.dot(self.weight)+self.bias)))
@@ -39,6 +42,5 @@ class LogisticRegression:
 
     def loss(self, h, y):
         return (-y * np.log(h) - (1 - y) * np.log(1 - h)).mean()
-
 
 
